@@ -18,10 +18,12 @@ job.init(args['JOB_NAME'], args)
 # Input: raw JSON
 raw_df = spark.read.json("s3://skyflow-pipeline-sushant/raw/passenger_events/")
 
-# Clean & transform
+# Transform
 cleaned_df = raw_df.dropDuplicates(["event_id"]).withColumn(
     "event_type", upper(col("event_type"))
 )
+
+# Once I see the data once will add more Transformations here
 
 # Optional enrichment: map ticket_class to numeric rank
 class_map = {

@@ -23,7 +23,7 @@ cleaned_df = raw_df.dropDuplicates(["event_id"]).withColumn(
     "event_type", upper(col("event_type"))
 )
 
-# Once I see the data once will add more Transformations here
+# Once I see the data once will add more Transformations
 
 # Optional enrichment: map ticket_class to numeric rank
 class_map = {

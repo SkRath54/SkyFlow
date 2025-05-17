@@ -1,34 +1,43 @@
-name: Upload Script & Trigger Glue Job
+name: SkyFlow Dev CI Pipeline
 
 on:
   push:
-    paths:
-      - '../../Data Transformation/passenger_events_transform.py'
+    branches:
+      - main
 
 jobs:
-  deploy:
+  dev-pipeline:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
+      - name: Checkout
         uses: actions/checkout@v3
 
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
-          python-version: '3.10'
+          python-version: "3.10"
 
-      - name: Configure AWS credentials
+      - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v2
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ap-south-1
+          aws-region: us-east-1
 
-      - name: Upload Glue script to S3
+      # 🧪 Step 1: Generate and Upload Sample Events (Dev Only)
+      - name: Generate and Upload JSON Data
         run: |
-          aws s3 cp passenger_events_transform.py s3://skyflow-pipeline-sushant/scripts/passenger_events_transform.py
+          pip install boto3
+          python data_generator/generate_passenger_events.py
+          python data_generator/upload_passenger_events.py
 
-      - name: Trigger AWS Glue Job
+      # 🐍 Step 2: Upload Glue Scripts to S3
+      - name: Upload Glue Scripts to S3
+        run: |
+          python data_transformation/util/upload_glue_jobs.py
+
+      # 🚀 Step 3: Trigger Glue Job(s)
+      - name: Trigger Main Glue Job
         run: |
           aws glue start-job-run --job-name skyflow-transform-passenger-events

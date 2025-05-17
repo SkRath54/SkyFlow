@@ -1,6 +1,6 @@
 .venv
 .idea
-Data Generation/passenger_events/*
+data_generator/passenger_events/*
 
 # Terraform
 .terraform/

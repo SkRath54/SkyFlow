@@ -2,8 +2,11 @@ import boto3
 from pathlib import Path
 import os
 
+# Use absolute path relative to script location
+base_dir = Path(__file__).resolve().parent
+LOCAL_FOLDER = base_dir / "data_transformation"
+
 BUCKET = "skyflow-pipeline-sushant"
-LOCAL_FOLDER = Path("data_transformation")
 S3_PREFIX = "scripts/"
 
 s3 = boto3.client("s3")

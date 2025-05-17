@@ -1,6 +1,6 @@
 resource "aws_glue_job" "skyflow_transform_passenger_events" {
   name     = "skyflow-transform-passenger-events"
-  role_arn = aws_iam_role.glue_role.arn
+  role_arn = var.glue_role_arn
 
   command {
     name            = "glueetl"

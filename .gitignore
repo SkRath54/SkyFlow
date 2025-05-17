@@ -11,3 +11,12 @@ crash.log
 override.tf
 override.tf.json
 .terraform.lock.hcl
+
+infra/glue_job/.terraform
+infra/glue_job/.terraform.lock.hcl
+infra/glue_job/*.tfstate
+infra/glue_job/*.tfstate.*
+infra/glue_job/crash.log
+infra/glue_job/*.tfvars
+infra/glue_job/override.tf
+infra/glue_job/override.tf.json

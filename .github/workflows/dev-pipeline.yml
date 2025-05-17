@@ -6,9 +6,8 @@ on:
       - main
 
 jobs:
-  dev-pipeline:
+  generate-data:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -18,11 +17,33 @@ jobs:
         with:
           python-version: "3.10"
 
-      - name: Setup Terraform
-        uses: hashicorp/setup-terraform@v2
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v2
         with:
-          terraform_version: 1.5.7
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ap-south-1
 
+      - name: Install Python Dependencies
+        run: pip install boto3
+
+      - name: Generate JSON Data
+        run: python data_generator/generate_passenger_events.py
+
+      - name: Upload JSON Data to S3
+        run: python data_generator/upload_passenger_events.py
+
+  upload-glue-script:
+    runs-on: ubuntu-latest
+    needs: generate-data
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.10"
 
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v2
@@ -31,38 +52,47 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ap-south-1
 
-
-      # 🧪 Step 1: Generate and Upload Sample Events (Dev Only)
-      - name: Generate and Upload JSON Data
-        run: |
-          pip install boto3
-          python data_generator/generate_passenger_events.py
-
-      - name: Upload JSON Data to S3
-        run: |
-          python data_generator/upload_passenger_events.py
-
-      # 🐍 Step 2: Upload Glue Scripts to S3
       - name: Upload Glue Scripts to S3
-        run: |
-          python data_transformation/util/upload_glue_jobs.py
+        run: python data_transformation/util/upload_glue_jobs.py
 
-      - name: Wait until Glue script is visible in S3
-        run: |
-          for i in {1..5}; do
-            aws s3 ls s3://skyflow-pipeline-sushant/scripts/passenger_events_transform.py && break
-            echo "Waiting for script to show up in S3..."
-            sleep 5
-          done
+  update-glue-job:
+    runs-on: ubuntu-latest
+    needs: upload-glue-script
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
 
-      # 🐍 Step 3: Update the Glue Job based on Change
-      - name: Re-apply Glue Job via Terraform
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v2
+        with:
+          terraform_version: 1.5.7
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ap-south-1
+
+      - name: Apply Glue Job Terraform
         working-directory: infra/glue_job
         run: |
           terraform init
           terraform apply -target=aws_glue_job.skyflow_transform_passenger_events -auto-approve
 
-      # 🚀 Step 3: Trigger Glue Job(s)
+  trigger-glue-job:
+    runs-on: ubuntu-latest
+    needs: update-glue-job
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ap-south-1
+
       - name: Trigger Main Glue Job
-        run: |
-          aws glue start-job-run --job-name skyflow-transform-passenger-events
+        run: aws glue start-job-run --region ap-south-1 --job-name skyflow-transform-passenger-events

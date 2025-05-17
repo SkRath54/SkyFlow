@@ -6,6 +6,7 @@ from pyspark.sql import SparkSession
 from awsglue.context import GlueContext
 from awsglue.job import Job
 from pyspark.sql.functions import col, upper
+from pyspark.sql.functions import when
 
 # Glue boilerplate
 args = getResolvedOptions(sys.argv, ['JOB_NAME'])
@@ -26,22 +27,18 @@ raw_df = spark.read.option("multiline", "true").json("s3://skyflow-pipeline-sush
 # )
 # raw_df = dynamic_df.toDF()
 
-
 # Transform
 cleaned_df = raw_df.dropDuplicates(["event_id"]).withColumn(
     "event_type", upper(col("event_type"))
 )
 
-# Once I see the data once will add more Transformations
-
-# Optional enrichment: map ticket_class to numeric rank
-class_map = {
-    "ECONOMY": 1,
-    "BUSINESS": 2,
-    "FIRST": 3
-}
-for key, value in class_map.items():
-    cleaned_df = cleaned_df.replace(key, value, subset=["ticket_class"])
+cleaned_df = cleaned_df.withColumn(
+    "ticket_class_rank",
+    when(col("ticket_class") == "ECONOMY", 1)
+    .when(col("ticket_class") == "BUSINESS", 2)
+    .when(col("ticket_class") == "FIRST", 3)
+    .otherwise(None)
+)
 
 # Output: Parquet format
 cleaned_df.write.mode("overwrite").parquet(

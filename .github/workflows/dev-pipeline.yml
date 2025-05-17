@@ -30,6 +30,9 @@ jobs:
         run: |
           pip install boto3
           python data_generator/generate_passenger_events.py
+
+      - name: Upload JSON Data to S3
+        run: |
           python data_generator/upload_passenger_events.py
 
       # 🐍 Step 2: Upload Glue Scripts to S3

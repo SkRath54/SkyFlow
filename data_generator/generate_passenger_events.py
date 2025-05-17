@@ -3,11 +3,15 @@ import random
 from datetime import datetime, timedelta
 import uuid
 import os
+from pathlib import Path
 
 flights = ["DL1845", "DL1067", "DL2231", "DL763"]
 airports = [("BAN", "BHU"), ("DEL", "HYD"), ("CHE", "KOL"), ("MUM", "GAN")]
 ticket_classes = ["ECONOMY", "BUSINESS", "FIRST"]
 event_types = ["CHECKIN", "BOARDING", "CANCELLED", "MISSED_FLIGHT", "BAGGAGE_DROP"]
+
+OUTPUT_DIR = Path(__file__).resolve().parent / "passenger_events"
+os.makedirs(OUTPUT_DIR, exist_ok=True)
 
 def generate_passenger_event():
     flight = random.choice(flights)
@@ -28,7 +32,7 @@ def save_events_to_file(n=50, folder="passenger_events"):
     os.makedirs(folder, exist_ok=True)
     for i in range(n):
         event = generate_passenger_event()
-        with open(f"{folder}/event_{i+1}.json", "w") as f:
+        with open(os.path.join(OUTPUT_DIR, f"event_{i + 1}.json"), "w") as f:
             json.dump(event, f, indent=2)
     print(f"{n} events generated in folder '{folder}'.")
 

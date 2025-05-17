@@ -1,6 +1,5 @@
 import boto3
 from pathlib import Path
-import os
 
 # Use absolute path relative to script location
 base_dir = Path(__file__).resolve().parent
@@ -11,8 +10,7 @@ s3_prefix = 'raw/passenger_events/'
 
 s3 = boto3.client('s3')
 
-for file_name in os.listdir(local_folder):
-    if file_name.endswith('.json'):
-        full_path = os.path.join(local_folder, file_name)
-        s3.upload_file(full_path, bucket_name, s3_prefix + file_name)
-        print(f"Uploaded: {file_name}")
+for file_path in local_folder.glob("*.json"):
+    s3_key = f"{s3_prefix}{file_path.name}"
+    s3.upload_file(str(file_path), bucket_name, s3_key)
+    print(f"✅ Uploaded: {file_path.name}")

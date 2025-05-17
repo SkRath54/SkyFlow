@@ -58,10 +58,10 @@ jobs:
 
       # 🐍 Step 3: Update the Glue Job based on Change
       - name: Re-apply Glue Job via Terraform
-        working-directory: infra
+        working-directory: infra/glue_job
         run: |
           terraform init
-          terraform apply -auto-approve
+          terraform apply -target=aws_glue_job.skyflow_transform_passenger_events -auto-approve
 
       # 🚀 Step 3: Trigger Glue Job(s)
       - name: Trigger Main Glue Job

@@ -2,9 +2,9 @@ import boto3
 from pathlib import Path
 import os
 
-# Use absolute path relative to script location
-base_dir = Path(__file__).resolve().parent
-LOCAL_FOLDER = base_dir / "data_transformation"
+# Get project root assuming this file lives in: SkyFlow/data_transformation/util/
+project_root = Path(__file__).resolve().parents[2]  # go up two levels
+LOCAL_FOLDER = project_root / "data_transformation"
 
 BUCKET = "skyflow-pipeline-sushant"
 S3_PREFIX = "scripts/"

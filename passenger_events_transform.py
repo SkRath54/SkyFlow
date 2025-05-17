@@ -29,8 +29,8 @@ class_map = {
     "BUSINESS": 2,
     "FIRST": 3
 }
-for k, v in class_map.items():
-    cleaned_df = cleaned_df.replace(k, v, subset=["ticket_class"])
+for key, value in class_map.items():
+    cleaned_df = cleaned_df.replace(key, value, subset=["ticket_class"])
 
 # Output: Parquet format
 cleaned_df.write.mode("overwrite").parquet(

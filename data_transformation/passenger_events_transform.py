@@ -16,7 +16,16 @@ job = Job(glueContext)
 job.init(args['JOB_NAME'], args)
 
 # Input: raw JSON
-raw_df = spark.read.json("s3://skyflow-pipeline-sushant/raw/passenger_events/")
+raw_df = spark.read.option("multiline", "true").json("s3://skyflow-pipeline-sushant/raw/passenger_events/")
+
+# OR
+# dynamic_df = glueContext.create_dynamic_frame_from_options(
+#     connection_type="s3",
+#     connection_options={"paths": ["s3://skyflow-pipeline-sushant/raw/passenger_events/"]},
+#     format="json"
+# )
+# raw_df = dynamic_df.toDF()
+
 
 # Transform
 cleaned_df = raw_df.dropDuplicates(["event_id"]).withColumn(

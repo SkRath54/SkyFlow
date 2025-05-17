@@ -40,6 +40,14 @@ jobs:
         run: |
           python data_transformation/util/upload_glue_jobs.py
 
+      - name: Wait until Glue script is visible in S3
+        run: |
+          for i in {1..5}; do
+            aws s3 ls s3://skyflow-pipeline-sushant/scripts/passenger_events_transform.py && break
+            echo "Waiting for script to show up in S3..."
+            sleep 5
+          done
+
       # 🚀 Step 3: Trigger Glue Job(s)
       - name: Trigger Main Glue Job
         run: |

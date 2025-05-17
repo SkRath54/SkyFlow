@@ -4,7 +4,6 @@ from datetime import datetime, timedelta
 import uuid
 import os
 
-# Sample data
 flights = ["DL1845", "DL1067", "DL2231", "DL763"]
 airports = [("BAN", "BHU"), ("DEL", "HYD"), ("CHE", "KOL"), ("MUM", "GAN")]
 ticket_classes = ["ECONOMY", "BUSINESS", "FIRST"]

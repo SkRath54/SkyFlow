@@ -18,12 +18,20 @@ jobs:
         with:
           python-version: "3.10"
 
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v2
+        with:
+          terraform_version: 1.5.7
+
+
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v2
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
+
+
 
       # 🧪 Step 1: Generate and Upload Sample Events (Dev Only)
       - name: Generate and Upload JSON Data
@@ -47,6 +55,13 @@ jobs:
             echo "Waiting for script to show up in S3..."
             sleep 5
           done
+
+      # 🐍 Step 3: Update the Glue Job based on Change
+      - name: Re-apply Glue Job via Terraform
+        working-directory: infra
+        run: |
+          terraform init
+          terraform apply -auto-approve
 
       # 🚀 Step 3: Trigger Glue Job(s)
       - name: Trigger Main Glue Job

@@ -83,7 +83,7 @@ jobs:
           terraform init
           terraform apply -target=aws_glue_job.skyflow_transform_passenger_events -auto-approve
 
-  tf-trigger-glue-job:
+  py-trigger-glue-job:
     runs-on: ubuntu-latest
     needs: tf-update-glue-job
     steps:
@@ -102,10 +102,13 @@ jobs:
 
   dbt-refresh-snowflake-ext:
     runs-on: ubuntu-latest
-    needs: tf-trigger-glue-job
+    needs: py-trigger-glue-job
     steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
       - name: Refresh Snowflake External Table
-        working-directory: ./dbt/snowflake_dbt
+        working-directory: dbt/snowflake_dbt
         env:
           DBT_PROFILES_DIR: ~/.dbt
           SNOWFLAKE_ACCOUNT: ${{ secrets.SNOWFLAKE_ACCOUNT }}

@@ -16,8 +16,15 @@ variable "skyflow_bucket_name" {
   default     = "skyflow-pipeline-sushant"
 }
 
+variable "snowflake_storage_role_name" {
+  description = "Snowflake Storage Access Role Name"
+  type        = string
+  default     = "SnowFlakeSkyFlowAccessRole"
+}
+
+
 resource "aws_iam_role" "snowflake_storage_access" {
-  name = "SnowFlakeSkyFlowAccessRole"
+  name = var.snowflake_storage_role_name
 
   assume_role_policy = jsonencode({
     Version = "2012-10-17"

@@ -1,0 +1,9 @@
+version: 2
+
+sources:
+  - name: raw
+    database: SKYFLOWDB
+    schema: PUBLIC
+    tables:
+      - name: passenger_events_external
+        description: "External table pointing to processed passenger events in S3"

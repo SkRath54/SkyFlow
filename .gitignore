@@ -20,3 +20,16 @@ infra/glue_job/crash.log
 infra/glue_job/*.tfvars
 infra/glue_job/override.tf
 infra/glue_job/override.tf.json
+
+infra/snowflake_integration/.terraform
+infra/snowflake_integration/.terraform.lock.hcl
+infra/snowflake_integration/*.tfstate
+infra/snowflake_integration/*.tfstate.*
+infra/snowflake_integration/crash.log
+infra/snowflake_integration/*.tfvars
+infra/snowflake_integration/override.tf
+infra/snowflake_integration/override.tf.json
+
+# SNOWFLAKE
+snowflake/.env
+snowflake/read_from_s3_to_snowflake.py

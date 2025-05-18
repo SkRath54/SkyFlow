@@ -12,3 +12,10 @@ module "glue_job" {
   source         = "./glue_job"
   glue_role_arn  = module.iam.glue_role_arn
 }
+
+module "snowflake_integration" {
+  source = "./snowflake_integration"
+
+  snowflake_external_id   = "VC54687_SFCRole=2_t1S8+TZRva6fAI9/p8X5CcqIFSk="
+  snowflake_iam_user_arn  = "arn:aws:iam::231580209547:user/v3311000-s"
+}

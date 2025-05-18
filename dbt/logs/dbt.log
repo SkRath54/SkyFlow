@@ -1,0 +1,95 @@
+[0m00:26:49.147246 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'start', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x00000152EEACFE20>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x00000152F0BF7820>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x00000152F0BF7610>]}
+
+
+============================== 00:26:49.152756 | 00f40c66-ab8d-4b2d-86b7-66ee1de5e5ba ==============================
+[0m00:26:49.152756 [info ] [MainThread]: Running with dbt=1.9.4
+[0m00:26:49.153754 [debug] [MainThread]: running dbt with arguments {'printer_width': '80', 'indirect_selection': 'eager', 'log_cache_events': 'False', 'write_json': 'True', 'partial_parse': 'True', 'cache_selected_only': 'False', 'profiles_dir': 'C:\\Users\\susan\\.dbt', 'fail_fast': 'False', 'debug': 'False', 'log_path': 'logs', 'warn_error': 'None', 'version_check': 'True', 'use_colors': 'True', 'use_experimental_parser': 'False', 'no_print': 'None', 'quiet': 'False', 'empty': 'None', 'log_format': 'default', 'invocation_command': 'dbt init snowflake_dbt', 'static_parser': 'True', 'introspect': 'True', 'target_path': 'None', 'warn_error_options': 'WarnErrorOptions(include=[], exclude=[])', 'send_anonymous_usage_stats': 'True'}
+[0m00:26:49.178208 [warn ] [MainThread]: [ConfigFolderDirectory]: Unable to parse logging event dictionary. Failed to parse dir field: expected string or bytes-like object.. Dictionary: {'dir': WindowsPath('C:/Users/susan/.dbt')}
+[0m00:26:49.178208 [info ] [MainThread]: Creating dbt configuration folder at 
+[0m00:26:49.182256 [debug] [MainThread]: Starter project path: C:\Users\susan\.conda\envs\skyflow\lib\site-packages\dbt\include\starter_project
+[0m00:26:49.196254 [info ] [MainThread]: 
+Your new dbt project "snowflake_dbt" was created!
+
+For more information on how to configure the profiles.yml file,
+please consult the dbt documentation here:
+
+  https://docs.getdbt.com/docs/configure-your-profile
+
+One more thing:
+
+Need help? Don't hesitate to reach out to us via GitHub issues or on Slack:
+
+  https://community.getdbt.com/
+
+Happy modeling!
+
+[0m00:26:49.197255 [info ] [MainThread]: Setting up your profile.
+[0m00:29:24.615253 [info ] [MainThread]: Profile snowflake_dbt written to C:\Users\susan\.dbt\profiles.yml using target's profile_template.yml and your supplied values. Run 'dbt debug' to validate the connection.
+[0m00:29:24.619741 [debug] [MainThread]: Command `dbt init` succeeded at 00:29:24.618744 after 155.59 seconds
+[0m00:29:24.620736 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'end', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x00000152EEACFE20>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x00000152F0BF7EB0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x00000152F0BF7EE0>]}
+[0m00:29:24.623744 [debug] [MainThread]: Flushing usage events
+[0m00:29:25.631973 [debug] [MainThread]: An error was encountered while trying to flush usage events
+[0m00:29:49.721943 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'start', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000022A9FF5FDC0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000022AA10BB7F0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000022AA10BB580>]}
+
+
+============================== 00:29:49.727125 | bd410cf9-4dbc-4cc0-baea-88f0636d88c6 ==============================
+[0m00:29:49.727125 [info ] [MainThread]: Running with dbt=1.9.4
+[0m00:29:49.728124 [debug] [MainThread]: running dbt with arguments {'printer_width': '80', 'indirect_selection': 'eager', 'write_json': 'True', 'log_cache_events': 'False', 'partial_parse': 'True', 'cache_selected_only': 'False', 'warn_error': 'None', 'version_check': 'True', 'debug': 'False', 'log_path': 'logs', 'profiles_dir': 'C:\\Users\\susan\\.dbt', 'fail_fast': 'False', 'use_colors': 'True', 'use_experimental_parser': 'False', 'no_print': 'None', 'quiet': 'False', 'empty': 'None', 'log_format': 'default', 'introspect': 'True', 'static_parser': 'True', 'invocation_command': 'dbt debug', 'target_path': 'None', 'warn_error_options': 'WarnErrorOptions(include=[], exclude=[])', 'send_anonymous_usage_stats': 'True'}
+[0m00:29:49.752061 [info ] [MainThread]: dbt version: 1.9.4
+[0m00:29:49.753062 [info ] [MainThread]: python version: 3.10.16
+[0m00:29:49.753062 [info ] [MainThread]: python path: C:\Users\susan\.conda\envs\skyflow\python.exe
+[0m00:29:49.754063 [info ] [MainThread]: os info: Windows-10-10.0.26100-SP0
+[0m00:29:50.761330 [info ] [MainThread]: Using profiles dir at C:\Users\susan\.dbt
+[0m00:29:50.762330 [info ] [MainThread]: Using profiles.yml file at C:\Users\susan\.dbt\profiles.yml
+[0m00:29:50.763329 [info ] [MainThread]: Using dbt_project.yml file at D:\MLOps\Projects\SkyFlow\dbt\dbt_project.yml
+[0m00:29:50.765657 [info ] [MainThread]: adapter type: snowflake
+[0m00:29:50.766924 [info ] [MainThread]: adapter version: 1.9.4
+[0m00:29:50.768114 [info ] [MainThread]: Configuration:
+[0m00:29:50.769606 [info ] [MainThread]:   profiles.yml file [[32mOK found and valid[0m]
+[0m00:29:50.770605 [info ] [MainThread]:   dbt_project.yml file [[31mERROR not found[0m]
+[0m00:29:50.771872 [info ] [MainThread]: Required dependencies:
+[0m00:29:50.773139 [debug] [MainThread]: Executing "git --help"
+[0m00:29:50.901024 [debug] [MainThread]: STDOUT: "b"usage: git [-v | --version] [-h | --help] [-C <path>] [-c <name>=<value>]\n           [--exec-path[=<path>]] [--html-path] [--man-path] [--info-path]\n           [-p | --paginate | -P | --no-pager] [--no-replace-objects] [--no-lazy-fetch]\n           [--no-optional-locks] [--no-advice] [--bare] [--git-dir=<path>]\n           [--work-tree=<path>] [--namespace=<name>] [--config-env=<name>=<envvar>]\n           <command> [<args>]\n\nThese are common Git commands used in various situations:\n\nstart a working area (see also: git help tutorial)\n   clone      Clone a repository into a new directory\n   init       Create an empty Git repository or reinitialize an existing one\n\nwork on the current change (see also: git help everyday)\n   add        Add file contents to the index\n   mv         Move or rename a file, a directory, or a symlink\n   restore    Restore working tree files\n   rm         Remove files from the working tree and from the index\n\nexamine the history and state (see also: git help revisions)\n   bisect     Use binary search to find the commit that introduced a bug\n   diff       Show changes between commits, commit and working tree, etc\n   grep       Print lines matching a pattern\n   log        Show commit logs\n   show       Show various types of objects\n   status     Show the working tree status\n\ngrow, mark and tweak your common history\n   backfill   Download missing objects in a partial clone\n   branch     List, create, or delete branches\n   commit     Record changes to the repository\n   merge      Join two or more development histories together\n   rebase     Reapply commits on top of another base tip\n   reset      Reset current HEAD to the specified state\n   switch     Switch branches\n   tag        Create, list, delete or verify a tag object signed with GPG\n\ncollaborate (see also: git help workflows)\n   fetch      Download objects and refs from another repository\n   pull       Fetch from and integrate with another repository or a local branch\n   push       Update remote refs along with associated objects\n\n'git help -a' and 'git help -g' list available subcommands and some\nconcept guides. See 'git help <command>' or 'git help <concept>'\nto read about a specific subcommand or concept.\nSee 'git help git' for an overview of the system.\n""
+[0m00:29:50.903016 [debug] [MainThread]: STDERR: "b''"
+[0m00:29:50.904813 [info ] [MainThread]:  - git [[32mOK found[0m]
+
+[0m00:29:50.908075 [info ] [MainThread]: Connection:
+[0m00:29:50.910063 [info ] [MainThread]:   account: XMGIEKT-UT68699
+[0m00:29:50.911064 [info ] [MainThread]:   user: SKRATH54
+[0m00:29:50.913065 [info ] [MainThread]:   database: SKYFLOWDB
+[0m00:29:50.915075 [info ] [MainThread]:   warehouse: LOCALTOCLOUDWH
+[0m00:29:50.916063 [info ] [MainThread]:   role: ACCOUNTADMIN
+[0m00:29:50.917066 [info ] [MainThread]:   schema: PUBLIC
+[0m00:29:50.919063 [info ] [MainThread]:   authenticator: None
+[0m00:29:50.920062 [info ] [MainThread]:   oauth_client_id: None
+[0m00:29:50.922749 [info ] [MainThread]:   query_tag: None
+[0m00:29:50.923746 [info ] [MainThread]:   client_session_keep_alive: False
+[0m00:29:50.925755 [info ] [MainThread]:   host: None
+[0m00:29:50.926753 [info ] [MainThread]:   port: None
+[0m00:29:50.927808 [info ] [MainThread]:   proxy_host: None
+[0m00:29:50.928323 [info ] [MainThread]:   proxy_port: None
+[0m00:29:50.929318 [info ] [MainThread]:   protocol: None
+[0m00:29:50.930466 [info ] [MainThread]:   connect_retries: 1
+[0m00:29:50.931469 [info ] [MainThread]:   connect_timeout: None
+[0m00:29:50.932588 [info ] [MainThread]:   retry_on_database_errors: False
+[0m00:29:50.932588 [info ] [MainThread]:   retry_all: False
+[0m00:29:50.933589 [info ] [MainThread]:   insecure_mode: False
+[0m00:29:50.934589 [info ] [MainThread]:   reuse_connections: True
+[0m00:29:50.935672 [info ] [MainThread]: Registered adapter: snowflake=1.9.4
+[0m00:29:51.365978 [debug] [MainThread]: Acquiring new snowflake connection 'debug'
+[0m00:29:51.484580 [debug] [MainThread]: Using snowflake connection "debug"
+[0m00:29:51.484580 [debug] [MainThread]: On debug: select 1 as id
+[0m00:29:51.485579 [debug] [MainThread]: Opening a new connection, currently in state init
+[0m00:29:52.409569 [debug] [MainThread]: SQL status: SUCCESS 1 in 0.923 seconds
+[0m00:29:52.412618 [info ] [MainThread]:   Connection test: [[32mOK connection ok[0m]
+
+[0m00:29:52.415603 [info ] [MainThread]: [31m1 check failed:[0m
+[0m00:29:52.417614 [info ] [MainThread]: Project loading failed for the following reason:
+ project path <D:\MLOps\Projects\SkyFlow\dbt\dbt_project.yml> not found
+
+[0m00:29:52.421663 [debug] [MainThread]: Command `dbt debug` failed at 00:29:52.420668 after 2.83 seconds
+[0m00:29:52.423660 [debug] [MainThread]: Connection 'debug' was left open.
+[0m00:29:52.425939 [debug] [MainThread]: On debug: Close
+[0m00:29:52.548808 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'end', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000022A9FF5FDC0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000022AA34CDDB0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000022AA3B9F6A0>]}
+[0m00:29:52.550811 [debug] [MainThread]: Flushing usage events
+[0m00:29:53.498308 [debug] [MainThread]: An error was encountered while trying to flush usage events

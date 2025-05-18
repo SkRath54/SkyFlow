@@ -28,7 +28,7 @@ def generate_passenger_event():
         "ticket_class": random.choice(ticket_classes)
     }
 
-def save_events_to_file(n=50, folder="passenger_events"):
+def save_events_to_file(n=500, folder="passenger_events"):
     os.makedirs(folder, exist_ok=True)
     for i in range(n):
         event = generate_passenger_event()

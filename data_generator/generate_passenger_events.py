@@ -37,4 +37,4 @@ def save_events_to_file(n=500, folder="passenger_events"):
     print(f"{n} events generated in folder '{folder}'.")
 
 if __name__ == "__main__":
-    save_events_to_file(n=50)
+    save_events_to_file(n=500)

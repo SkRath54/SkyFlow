@@ -30,6 +30,11 @@ infra/snowflake_integration/*.tfvars
 infra/snowflake_integration/override.tf
 infra/snowflake_integration/override.tf.json
 
+infra/aws_notification/.terraform
+infra/aws_notification/.terraform.lock.hcl
+infra/aws_notification/*.tfstate
+infra/aws_notification/*.tfstate.*
+
 # SNOWFLAKE
 snowflake/.env
 snowflake/read_from_s3_to_snowflake.py

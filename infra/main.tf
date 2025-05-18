@@ -26,6 +26,4 @@ module "aws_notification" {
 
   skyflow_bucket_name     = "skyflow-pipeline-sushant"
   snowflake_role_name     = "SnowFlakeSkyFlowAccessRole"
-  snowflake_external_id   = "VC54687_SFCRole=2_t1S8+TZRva6fAI9/p8X5CcqIFSk="
-  snowflake_iam_user_arn  = "arn:aws:iam::231580209547:user/v3311000-s"
 }

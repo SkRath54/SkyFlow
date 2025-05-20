@@ -110,7 +110,7 @@ jobs:
 #      - name: Refresh Snowflake External Table
 #        working-directory: dbt/snowflake_dbt
 #        env:
-#          DBT_PROFILES_DIR: ~/.dbt
+#          DBT_PROFILES_DIR: dbt
 #          SNOWFLAKE_ACCOUNT: ${{ secrets.SNOWFLAKE_ACCOUNT }}
 #          SNOWFLAKE_USER: ${{ secrets.SNOWFLAKE_USER }}
 #          SNOWFLAKE_PASSWORD: ${{ secrets.SNOWFLAKE_PASSWORD }}

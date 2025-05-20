@@ -3,7 +3,7 @@ USE ROLE ACCOUNTADMIN;
 ---> set Warehouse Context
 USE WAREHOUSE LOCALTOCLOUDWH;
 ---> create and set the Database
-CREATE OR REPLACE DATABASE SKYFLOWDB;
+-- CREATE OR REPLACE DATABASE SKYFLOWDB;
 USE DATABASE SKYFLOWDB;
 
 CREATE OR REPLACE STORAGE INTEGRATION skyflow_integration
@@ -39,8 +39,8 @@ SHOW STAGES;
 LIST @stage_passenger;
 
 -- All data from the Stage loads as a single column $1 in the Snowflake table
--- CREATE OR REPLACE TABLE passenger_events AS
--- SELECT * FROM @stage_passenger;
+CREATE OR REPLACE TABLE passenger_events AS
+SELECT * FROM @stage_passenger;
 
 -- Define the Schema of the table based on the JSON extraction
 
@@ -72,9 +72,9 @@ CREATE OR REPLACE EXTERNAL TABLE passenger_events_external (
 )
 WITH LOCATION = @stage_passenger
 FILE_FORMAT = (TYPE = 'PARQUET')
-AUTO_REFRESH = FALSE;
+AUTO_REFRESH = TRUE;
 
-SELECT * FROM passenger_events_external LIMIT 10;
+SELECT * FROM passenger_events_external;
 
 
 -- Materialize into a native table (fast querying + dbt-ready)
@@ -82,20 +82,28 @@ CREATE OR REPLACE TABLE passenger_events AS
 SELECT * FROM passenger_events_external;
 
 
--- -- OR Create the native table directly from Stage
+-- OR Create the native table directly from Stage
 
--- CREATE OR REPLACE TABLE passenger_events AS
--- SELECT
---   $1:event_id::STRING AS event_id,
---   $1:passenger_id::STRING AS passenger_id,
---   $1:event_type::STRING AS event_type,
---   $1:ticket_class::STRING AS ticket_class,
---   $1:event_timestamp::TIMESTAMP AS event_time,
---   $1:flight_number::STRING AS flight_number,
---   $1:seat_number::STRING AS seat_number,
---   $1:departure_airport::STRING AS departure_airport,
---   $1:arrival_airport::STRING AS arrival_airport,
---   $1:ticket_class_rank::INTEGER AS ticket_class_rank
--- FROM @stage_passenger;
+CREATE OR REPLACE TABLE passenger_events AS
+SELECT
+  $1:event_id::STRING AS event_id,
+  $1:passenger_id::STRING AS passenger_id,
+  $1:event_type::STRING AS event_type,
+  $1:ticket_class::STRING AS ticket_class,
+  $1:event_timestamp::TIMESTAMP AS event_time,
+  $1:flight_number::STRING AS flight_number,
+  $1:seat_number::STRING AS seat_number,
+  $1:departure_airport::STRING AS departure_airport,
+  $1:arrival_airport::STRING AS arrival_airport,
+  $1:ticket_class_rank::INTEGER AS ticket_class_rank
+FROM @stage_passenger;
 
--- SELECT * FROM passenger_events LIMIT 10;
+ALTER EXTERNAL TABLE SKYFLOWDB.PUBLIC.passenger_events_external
+SET AUTO_REFRESH = TRUE;
+
+
+ALTER EXTERNAL TABLE passenger_events_external REFRESH;
+
+SELECT count(*) stage_count FROM @stage_passenger;
+SELECT count(*) external_count FROM passenger_events_external;
+SELECT COUNT(*) static_count FROM passenger_events;

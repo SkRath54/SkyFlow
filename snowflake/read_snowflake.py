@@ -14,4 +14,20 @@ conn = snowflake.connector.connect(
     role=os.getenv("SF_ROLE")
 )
 
-# Now run your query...
+cur = conn.cursor()
+
+cur.execute("""
+    SELECT 'stage_passenger' AS source, COUNT(*) AS row_count FROM @stage_passenger
+    UNION ALL
+    SELECT 'passenger_events_external', COUNT(*) FROM passenger_events_external
+    UNION ALL
+    SELECT 'passenger_events', COUNT(*) FROM passenger_events;
+""")
+
+print("\n📊 Row Count Summary:")
+rows = cur.fetchall()
+for row in rows:
+    print(f"{row[0]} → {row[1]}")
+
+cur.close()
+conn.close()

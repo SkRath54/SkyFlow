@@ -38,7 +38,7 @@ def generate_passenger_event():
         "ticket_class": random.choice(ticket_classes)
     }
 
-def save_events_to_file(n=5000, folder="passenger_events"):
+def save_events_to_file(n=1000, folder="passenger_events"):
     os.makedirs(folder, exist_ok=True)
     for i in range(n):
         event = generate_passenger_event()
@@ -47,4 +47,4 @@ def save_events_to_file(n=5000, folder="passenger_events"):
     print(f"{n} events generated in folder '{folder}'.")
 
 if __name__ == "__main__":
-    save_events_to_file(n=5000)
+    save_events_to_file(n=1000)
